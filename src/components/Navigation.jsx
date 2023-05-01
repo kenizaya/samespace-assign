@@ -1,17 +1,30 @@
 import React from 'react'
 import logo from '../assets/logo.svg'
+import { gql, useQuery } from '@apollo/client'
 
-const playlists = ['For You', 'Top Tracks', 'Favourites', 'Recently Played']
+const GET_PLAYLISTS = gql`
+  query {
+    getPlaylists {
+      id
+      title
+    }
+  }
+`
 
 const Navigation = () => {
+  const { data, error, loading } = useQuery(GET_PLAYLISTS)
+  const { getPlaylists } = data
+  if (loading) return <div>Loading...</div>
+  if (error) return <div>Error! {error.message}</div>
+
   return (
     <div className='bg-black h-screen pl-8 pt-8 w-[280px]'>
       <div className='w-[150px] h-[176px]'>
         <img src={logo} alt='spotifi logo' className='pb-8' />
 
         <ul className='text-white flex gap-4 flex-col font-basierCircle text-xl leading-[32px]'>
-          {playlists.map((playlist) => (
-            <li key={playlist}>{playlist}</li>
+          {getPlaylists.map(({ id, title }) => (
+            <li key={id}>{title}</li>
           ))}
         </ul>
       </div>
