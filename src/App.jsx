@@ -12,7 +12,7 @@ const App = () => {
 
   return (
     <div className='pl-8 pt-8 bg-black flex'>
-      <Navigation setPlaylistId={setPlaylistId} />
+      <Navigation setPlaylistId={setPlaylistId} playlistId={playlistId} />
       <Sidebar
         playlistId={playlistId}
         setSongs={setSongs}

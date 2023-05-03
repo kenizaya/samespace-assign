@@ -11,7 +11,7 @@ const GET_PLAYLISTS = gql`
   }
 `
 
-const Navigation = ({ setPlaylistId }) => {
+const Navigation = ({ setPlaylistId, playlistId }) => {
   const { data, error, loading } = useQuery(GET_PLAYLISTS)
   if (loading) return <div>Loading...</div>
   if (error) return <div>Error! {error.message}</div>
@@ -24,7 +24,11 @@ const Navigation = ({ setPlaylistId }) => {
 
         <ul className='text-white flex gap-4 flex-col font-basierCircle text-xl leading-[32px] cursor-pointer'>
           {getPlaylists.map(({ id, title }) => (
-            <li onClick={() => setPlaylistId(id)} key={id}>
+            <li
+              onClick={() => setPlaylistId(id)}
+              key={id}
+              className={id === playlistId ? 'opacity-100' : 'opacity-40'}
+            >
               {title}
             </li>
           ))}
