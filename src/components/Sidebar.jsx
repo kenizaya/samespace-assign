@@ -30,7 +30,7 @@ const Sidebar = ({ playlistId, setSongs, setCurrentSongIndex }) => {
   }
 
   return (
-    <div className='bg-black h-full max-h-[862px] w-[432px] overflow-y-scroll no-scrollbar'>
+    <div className='h-full max-h-[862px] w-[432px] overflow-y-scroll no-scrollbar'>
       <h2 className='text-white font-basierCircle font-bold text-[32px] leading-8'>
         For You
       </h2>
@@ -41,7 +41,7 @@ const Sidebar = ({ playlistId, setSongs, setCurrentSongIndex }) => {
           return (
             <li
               key={_id}
-              className='w-full h-[80px] rounded-lg cursor-pointer'
+              className='w-full h-[80px] rounded-lg cursor-pointer flex '
               onClick={() => handleClick(index)}
             >
               <div className='w-full flex justify-between px-4 items-center'>
@@ -53,10 +53,10 @@ const Sidebar = ({ playlistId, setSongs, setCurrentSongIndex }) => {
                   />
                   <div>
                     <h3 className='text-lg leading-6'>{title}</h3>
-                    <h4 className='text-sm text-opacity-60'>{artist}</h4>
+                    <h4 className='text-sm opacity-60'>{artist}</h4>
                   </div>
                 </div>
-                <span className='text-opacity-60 text-lg'>
+                <span className='opacity-60 text-lg'>
                   {formatTime(duration)}
                 </span>
               </div>

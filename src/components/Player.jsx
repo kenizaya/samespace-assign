@@ -7,15 +7,22 @@ import pause from '../assets/pause.svg'
 import next from '../assets/next.svg'
 import speaker from '../assets/speaker.svg'
 
-function Player({ songs, currentSongIndex, setCurrentSongIndex }) {
+function Player({
+  songs,
+  currentSongIndex,
+  setCurrentSongIndex,
+  setCurrentSong,
+  currentSong,
+}) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [played, setPlayed] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
 
-  console.log(played)
+  useEffect(() => {
+    setCurrentSong(songs[currentSongIndex])
+  }, [currentSongIndex, songs])
 
-  const currentSong = songs[currentSongIndex]
   const { title, artist, photo, url } = currentSong
 
   const handlePlayPause = () => {

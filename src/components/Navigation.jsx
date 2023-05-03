@@ -1,5 +1,6 @@
 import React from 'react'
 import logo from '../assets/logo.svg'
+import profile from '../assets/profile.png'
 import { gql, useQuery } from '@apollo/client'
 
 const GET_PLAYLISTS = gql`
@@ -18,7 +19,7 @@ const Navigation = ({ setPlaylistId, playlistId }) => {
   const { getPlaylists } = data
 
   return (
-    <div className='bg-black h-screen w-[280px]'>
+    <div className='h-full w-[280px] flex flex-col justify-between'>
       <div className='w-[150px] h-[176px]'>
         <img src={logo} alt='spotifi logo' className='pb-8' />
 
@@ -34,6 +35,13 @@ const Navigation = ({ setPlaylistId, playlistId }) => {
           ))}
         </ul>
       </div>
+      <img
+        src={profile}
+        alt='profile'
+        width={48}
+        height={48}
+        className='mb-8 cursor-pointer'
+      />
     </div>
   )
 }
