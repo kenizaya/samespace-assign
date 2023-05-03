@@ -73,7 +73,7 @@ function Player({ songs, currentSongIndex }) {
           className='w-[480px] h-[480px] object-contain rounded-lg mr-4'
         />
       </div>
-      <ReactAudioPlayer
+      {/* <ReactAudioPlayer
         src={url}
         autoPlay
         controls
@@ -83,7 +83,7 @@ function Player({ songs, currentSongIndex }) {
         onTimeUpdate={handleTimeUpdate}
         currentTime={currentTime}
         duration={duration}
-      />
+      /> */}
       <div className='flex items-center mt-8 justify-between w-full'>
         <button>
           <img src={menu} alt='Menu' />

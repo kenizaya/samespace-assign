@@ -4,15 +4,17 @@ import Sidebar from './components/Sidebar'
 import Player from './components/Player'
 
 const App = () => {
-  const [playlistID, setPlaylistID] = React.useState(null)
+  const [playlistId, setPlaylistId] = React.useState(1)
   const [songs, setSongs] = React.useState([])
   const [currentSongIndex, setCurrentSongIndex] = React.useState(0)
 
+  console.log(playlistId)
+
   return (
     <div className='pl-8 pt-8 bg-black flex'>
-      <Navigation setPlaylistID={setPlaylistID} />
+      <Navigation setPlaylistId={setPlaylistId} />
       <Sidebar
-        playlistID={playlistID}
+        playlistId={playlistId}
         setSongs={setSongs}
         setCurrentSongIndex={setCurrentSongIndex}
       />

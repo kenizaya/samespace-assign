@@ -4,7 +4,7 @@ import { gql, useQuery } from '@apollo/client'
 import { formatTime } from '../utils/formatTime'
 
 const GET_SONGS = gql`
-  query ($playlistId: Int!) {
+  query GetPlaylist($playlistId: Int!) {
     getSongs(playlistId: $playlistId) {
       _id
       artist
@@ -15,7 +15,7 @@ const GET_SONGS = gql`
     }
   }
 `
-const Sidebar = ({ playlistId = 1, setSongs, setCurrentSongIndex }) => {
+const Sidebar = ({ playlistId, setSongs, setCurrentSongIndex }) => {
   const { data, error, loading } = useQuery(GET_SONGS, {
     variables: { playlistId: playlistId },
   })
@@ -24,11 +24,10 @@ const Sidebar = ({ playlistId = 1, setSongs, setCurrentSongIndex }) => {
   if (error) return <div>Error! {error.message}</div>
   const { getSongs } = data
 
-  useEffect(() => {
-    console.log(getSongs)
-
-    if (getSongs) setSongs(getSongs)
-  }, [data])
+  const handleClick = () => {
+    setSongs(getSongs)
+    setCurrentSongIndex(index)
+  }
 
   return (
     <div className='bg-black h-full max-h-[862px] w-[432px] overflow-y-scroll no-scrollbar'>
@@ -43,7 +42,7 @@ const Sidebar = ({ playlistId = 1, setSongs, setCurrentSongIndex }) => {
             <li
               key={_id}
               className='w-full h-[80px] rounded-lg cursor-pointer'
-              onClick={() => setCurrentSongIndex(index)}
+              onClick={() => handleClick(index)}
             >
               <div className='w-full flex justify-between px-4 items-center'>
                 <div className='flex items-center gap-4'>
