@@ -19,7 +19,11 @@ const App = () => {
         setCurrentSongIndex={setCurrentSongIndex}
       />
       {songs.length !== 0 && (
-        <Player songs={songs} currentSongIndex={currentSongIndex} />
+        <Player
+          songs={songs}
+          currentSongIndex={currentSongIndex}
+          setCurrentSongIndex={setCurrentSongIndex}
+        />
       )}
     </div>
   )

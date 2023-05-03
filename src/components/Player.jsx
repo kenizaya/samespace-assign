@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import ReactAudioPlayer from 'react-audio-player'
+import ReactPlayer from 'react-player/file'
 import menu from '../assets/menu.svg'
 import prev from '../assets/prev.svg'
 import play from '../assets/play.svg'
@@ -7,17 +7,19 @@ import pause from '../assets/pause.svg'
 import next from '../assets/next.svg'
 import speaker from '../assets/speaker.svg'
 
-function Player({ songs, currentSongIndex }) {
-  const [isPlaying, setIsPlaying] = useState(true)
+function Player({ songs, currentSongIndex, setCurrentSongIndex }) {
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [played, setPlayed] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
 
+  console.log(played)
+
   const currentSong = songs[currentSongIndex]
-  console.log(currentSong)
   const { title, artist, photo, url } = currentSong
 
   const handlePlayPause = () => {
-    setIsPlaying(!isPlaying)
+    setIsPlaying((prev) => !prev)
   }
 
   const handleTimeUpdate = (e) => {
@@ -27,13 +29,13 @@ function Player({ songs, currentSongIndex }) {
 
   const handlePrevious = () => {
     if (currentSongIndex > 0) {
-      onPrevious(currentSongIndex - 1)
+      setCurrentSongIndex((prev) => prev - 1)
     }
   }
 
   const handleNext = () => {
     if (currentSongIndex < songs.length - 1) {
-      onNext(currentSongIndex + 1)
+      setCurrentSongIndex((prev) => prev + 1)
     }
   }
   // const [isPlaying, setIsPlaying] = useState(false)
@@ -59,7 +61,7 @@ function Player({ songs, currentSongIndex }) {
   // }
 
   return (
-    <div className='flex flex-col ml-[162px] items-center w-[480px] h-full max-h-[692.24px]'>
+    <div className='flex flex-col ml-[162px] items-center w-full max-w-[480px] h-full max-h-[700px] '>
       <div className='flex flex-col gap-8'>
         <div className='flex flex-col gap-2'>
           <h2 className='text-white font-basierCircle font-bold text-[32px] '>
@@ -70,20 +72,17 @@ function Player({ songs, currentSongIndex }) {
         <img
           src={photo}
           alt={`${title} cover`}
-          className='w-[480px] h-[480px] object-contain rounded-lg mr-4'
+          className='w-[480px] h-[480px] object-contain rounded-lg mr-4 mb-6'
         />
       </div>
-      {/* <ReactAudioPlayer
-        src={url}
-        autoPlay
-        controls
-        className='ml-4 flex-1'
-        onPlay={handlePlayPause}
-        onPause={handlePlayPause}
-        onTimeUpdate={handleTimeUpdate}
-        currentTime={currentTime}
-        duration={duration}
-      /> */}
+
+      <div className='h-[6px] w-full bg-white bg-opacity-20 cursor-pointer rounded-2xl'>
+        <div
+          className='h-[6px] bg-white rounded-2xl'
+          style={{ width: `${played}%` }}
+        ></div>
+      </div>
+
       <div className='flex items-center mt-8 justify-between w-full'>
         <button>
           <img src={menu} alt='Menu' />
@@ -109,6 +108,14 @@ function Player({ songs, currentSongIndex }) {
           {/* <img src='mute' alt='Volume Mute' className='w-6 h-6' /> */}
         </button>
       </div>
+      <ReactPlayer
+        url={url}
+        onProgress={({ played, playedSeconds }) => {
+          setPlayed(played * 100)
+        }}
+        playing={isPlaying}
+        controls={false}
+      />
     </div>
   )
 }

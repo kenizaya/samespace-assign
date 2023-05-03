@@ -24,7 +24,7 @@ const Sidebar = ({ playlistId, setSongs, setCurrentSongIndex }) => {
   if (error) return <div>Error! {error.message}</div>
   const { getSongs } = data
 
-  const handleClick = () => {
+  const handleClick = (index) => {
     setSongs(getSongs)
     setCurrentSongIndex(index)
   }
