@@ -7,3 +7,22 @@
   src: url('..assets/fonts/BasierCircle-Regular.woff2') format('woff2'),
     url('..assets/fonts/BasierCircle-Regular.woff') format('woff');
 }
+
+@font-face {
+  font-family: 'BasierCircle';
+  src: url('..assets/fonts/BasierCircle-Bold.woff2') format('woff2'),
+    url('..assets/fonts/BasierCircle-Bold.woff') format('woff');
+  font-weight: bold;
+}
+
+@layer utilities {
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
