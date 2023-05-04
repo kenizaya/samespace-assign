@@ -68,7 +68,7 @@ function Player({
   // }
 
   return (
-    <div className='bg-black h-[200px] p-5 rounded-lg flex flex-col mx-auto xl:mx-[162px] items-center sm:w-full max-w-[360px] sm:max-w-[480px] xl:h-full max-h-[700px]'>
+    <div className='bg-black h-[200px]  rounded-lg flex flex-col mx-auto xl:mx-[162px] items-center sm:w-full max-w-[360px] sm:max-w-[480px] xl:h-full max-h-[700px]'>
       <div className='flex w-full justify-between lg:flex-col gap-2 md:gap-8'>
         <div className='flex flex-col gap-1 md:gap-2'>
           <h2 className='text-white font-basierCircle font-bold text-lg md:text-xl lg:text-[32px]'>
@@ -125,7 +125,7 @@ function Player({
             <img
               src={next}
               alt='Next'
-              className='w-1/2 h-1/2 md:w-full md:h-full'
+              className='w-1/2 h-1/2 lg:w-full lg:h-full'
             />
           </button>
         </div>
@@ -134,7 +134,7 @@ function Player({
           <img
             src={speaker}
             alt='Volume Up'
-            className='w-1/2 h-1/2 md:w-full md:h-full'
+            className='w-1/2 h-1/2 lg:w-full lg:h-full'
           />
           {/* <img src='mute' alt='Volume Mute' className='w-6 h-6' /> */}
         </button>

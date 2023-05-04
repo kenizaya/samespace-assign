@@ -33,7 +33,7 @@ const Sidebar = ({
   }, [data])
 
   const handleClick = (index) => {
-    setSongs(getSongs)
+    setSongs(filteredSongs)
     setCurrentSongIndex(index)
   }
 
@@ -60,7 +60,7 @@ const Sidebar = ({
   }, [query, getSongs])
 
   return (
-    <div className='h-screen max-h-[862px] mx-auto w-full sm:w-[432px] overflow-y-scroll no-scrollbar'>
+    <div className='h-screen max-h-[862px] mx-auto w-full sm:w-[432px] max-w-[420px] overflow-y-scroll no-scrollbar'>
       <h2 className='text-white font-basierCircle font-bold text-2xl md:text-3xl leading-8'>
         For You
       </h2>
@@ -75,7 +75,9 @@ const Sidebar = ({
             <li
               key={_id}
               className={`w-full h-[80px] rounded-lg cursor-pointer flex ${
-                _id === getSongs[currentSongIndex]?._id ? 'bg-gray-600' : ''
+                _id === filteredSongs[currentSongIndex]?._id
+                  ? 'bg-gray-600'
+                  : ''
               }`}
               onClick={() => handleClick(index)}
             >
