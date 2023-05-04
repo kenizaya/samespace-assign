@@ -2290,6 +2290,11 @@ qs@~6.5.2:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.3.tgz#3aeeffc91967ef6e35c0e488ef46fb296ab76aad"
   integrity sha512-qxXIEh4pCGfHICj1mAJQ2/2XVZkjCDTcEgfoSQxc/fYivUZxTkk7L3bDBJSoNrEzXI17oUO5Dp07ktqE5KzczA==
 
+quantize@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/quantize/-/quantize-1.0.2.tgz#d25ac200a77b6d70f40127ca171a10e33c8546de"
+  integrity sha512-25P7wI2UoDbIQsQp50ARkt+5pwPsOq7G/BqvT5xAbapnRoNWMN8/p55H9TXd5MuENiJnm5XICB2H2aDZGwts7w==
+
 querystring@0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
@@ -2815,6 +2820,13 @@ url@^0.11.0:
   dependencies:
     punycode "1.3.2"
     querystring "0.2.0"
+
+use-image-color@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/use-image-color/-/use-image-color-0.0.9.tgz#6abc75c98bb5ba6655430d95ef4a1f3baeed7780"
+  integrity sha512-wEoBM61IbWzNxfcAyln2PcJwpCxgBmAvMdXrixXPNDQ8Ms8aMGXaxIGyzrtqOkc/OJGLXDUcGk/GLmxS5BOGDQ==
+  dependencies:
+    quantize "^1.0.2"
 
 utif@^2.0.1:
   version "2.0.1"

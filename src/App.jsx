@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Navigation from './components/Navigation'
 import Sidebar from './components/Sidebar'
 import Player from './components/Player'
+import useImageColor from './hooks/useImageColor'
 // import GradientBackground from './components/GradientBackground'
 // import Vibrant from 'node-vibrant'
 
@@ -12,8 +13,10 @@ const App = () => {
   const [currentSong, setCurrentSong] = React.useState(songs[currentSongIndex])
   const [showMobile, setShowMobile] = React.useState(false)
   const [showPlaylist, setShowPlaylist] = React.useState(true)
-  const [gradient, setGradient] = React.useState('black')
-  console.log(currentSongIndex)
+  const { color, canvasRef } = useImageColor(currentSong?.photo)
+  const gradientStartColor = `rgba(${color?.r}, ${color?.g}, ${color?.b}, 0.6)`
+  const gradientEndColor = `rgba(${color?.r}, ${color?.g}, ${color?.b}, 1 )`
+  console.log(gradientStartColor)
 
   useEffect(() => {
     setCurrentSong(songs[currentSongIndex])
@@ -52,11 +55,21 @@ const App = () => {
     }
   }, [])
 
+  console.log(color)
+
   return (
     <div
-      className='px-8 pt-8 flex h-screen max-h-full overflow-hidden'
-      style={{ background: `${gradient}` }}
+      style={{
+        background: `linear-gradient(to right, rgba(${color.r},${color.g},${color.b}, 0.8), rgba(${color.r},${color.g},${color.b}, 1))`,
+      }}
+      className={`px-8 pt-8 flex h-screen max-h-full overflow-hidden ${
+        color
+          ? `bg-gradient-to-r from-[${gradientStartColor}] to-[${gradientEndColor}]`
+          : 'bg-black'
+      }`}
     >
+      <canvas ref={canvasRef} style={{ display: 'none' }} />
+
       {showPlaylist && (
         <Navigation setPlaylistId={setPlaylistId} playlistId={playlistId} />
       )}
