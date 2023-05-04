@@ -74,7 +74,7 @@ function Player({
           <h2 className='text-white font-basierCircle font-bold text-[32px] '>
             {title}
           </h2>
-          <p className='text-sm text-gray-500'>{artist}</p>
+          <p className='text-sm text-white opacity-60'>{artist}</p>
         </div>
         <img
           src={photo}
