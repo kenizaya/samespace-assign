@@ -16,7 +16,6 @@ function Player({
 }) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [played, setPlayed] = useState(0)
-
   const [seeking, setSeeking] = useState(false)
   const playerRef = useRef(null)
 
@@ -26,12 +25,18 @@ function Player({
 
   const { title, artist, photo, url } = currentSong
 
+  // // useEffect(() => {
+  //   setPlayed(0)
+  // }, [currentSong])
+
   const handlePlayPause = () => {
     setIsPlaying((prev) => !prev)
   }
 
   const handlePrevious = () => {
-    if (currentSongIndex > 0) {
+    setPlayed(0)
+    playerRef.current.seekTo(0)
+    if (played <= 0.3 && currentSongIndex > 0) {
       setCurrentSongIndex((prev) => prev - 1)
     }
   }
@@ -39,6 +44,8 @@ function Player({
   const handleNext = () => {
     if (currentSongIndex < songs.length - 1) {
       setCurrentSongIndex((prev) => prev + 1)
+      setPlayed(0)
+      playerRef.current.seekTo(0)
     }
   }
 
