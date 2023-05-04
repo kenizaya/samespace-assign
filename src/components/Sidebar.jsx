@@ -60,14 +60,15 @@ const Sidebar = ({
   }, [query, getSongs])
 
   return (
-    <div className='h-full max-h-[862px] w-[432px] overflow-y-scroll no-scrollbar'>
-      <h2 className='text-white font-basierCircle font-bold text-[32px] leading-8'>
+    <div className='h-screen max-h-[862px] mx-auto w-full sm:w-[432px] overflow-y-scroll no-scrollbar'>
+      <h2 className='text-white font-basierCircle font-bold text-2xl md:text-3xl leading-8'>
         For You
       </h2>
       <Search setQuery={setQuery} />
+
       {loading && <Loader />}
       {error && <div>Error! {error.message}</div>}
-      <ul className='text-white flex gap-4 flex-col font-basierCircle text-xl leading-[32px]'>
+      <ul className='text-white flex gap-4 flex-col font-basierCircle text-xl md:text-2xl leading-[32px]'>
         {filteredSongs.map((song, index) => {
           const { _id, title, artist, duration, photo } = song
           return (
@@ -86,7 +87,7 @@ const Sidebar = ({
                     className='w-12 h-12 rounded-full'
                   />
                   <div>
-                    <h3 className='text-lg leading-6'>{title}</h3>
+                    <h3 className='text-base md:text-lg leading-6'>{title}</h3>
                     <h4 className='text-sm opacity-60'>{artist}</h4>
                   </div>
                 </div>

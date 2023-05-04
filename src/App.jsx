@@ -11,6 +11,7 @@ const App = () => {
   const [currentSongIndex, setCurrentSongIndex] = React.useState(0)
   const [currentSong, setCurrentSong] = React.useState(songs[currentSongIndex])
   const [showMobile, setShowMobile] = React.useState(false)
+  const [showPlaylist, setShowPlaylist] = React.useState(true)
   const [gradient, setGradient] = React.useState('black')
   console.log(currentSongIndex)
 
@@ -41,7 +42,7 @@ const App = () => {
   // console.log(gradient)
 
   const handleWindowSizeChange = () => {
-    setShowMobile(window.innerWidth <= 1200)
+    setShowPlaylist(window.innerWidth >= 1350)
   }
 
   useEffect(() => {
@@ -53,29 +54,31 @@ const App = () => {
 
   return (
     <div
-      className='pl-8 pt-8 flex h-screen'
+      className='px-8 pt-8 flex h-screen max-h-full overflow-hidden'
       style={{ background: `${gradient}` }}
     >
-      {!showMobile && (
+      {showPlaylist && (
         <Navigation setPlaylistId={setPlaylistId} playlistId={playlistId} />
       )}
-      {!showMobile && (
+      <div className='flex mx-auto h-screen flex-col lg:flex-row md:gap-10 md:overflow-x-hidden relative w-full'>
         <Sidebar
           playlistId={playlistId}
           setSongs={setSongs}
           setCurrentSongIndex={setCurrentSongIndex}
           currentSongIndex={currentSongIndex}
         />
-      )}
-      {songs.length !== 0 && currentSong && (
-        <Player
-          songs={songs}
-          currentSongIndex={currentSongIndex}
-          setCurrentSongIndex={setCurrentSongIndex}
-          currentSong={currentSong}
-          setCurrentSong={setCurrentSong}
-        />
-      )}
+
+        {songs.length !== 0 && currentSong && (
+          <Player
+            songs={songs}
+            currentSongIndex={currentSongIndex}
+            setCurrentSongIndex={setCurrentSongIndex}
+            currentSong={currentSong}
+            setCurrentSong={setCurrentSong}
+          />
+        )}
+      </div>
+
       {/* {currentSong && <GradientBackground imageUrl={currentSong?.photo} />} */}
     </div>
   )
