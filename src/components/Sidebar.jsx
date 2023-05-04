@@ -2,6 +2,7 @@ import React, { useEffect, useMemo } from 'react'
 import Search from './Search'
 import { gql, useQuery } from '@apollo/client'
 import { formatTime } from '../utils/formatTime'
+import Loader from './Loader'
 
 const GET_SONGS = gql`
   query GetPlaylist($playlistId: Int!) {
@@ -64,7 +65,7 @@ const Sidebar = ({
         For You
       </h2>
       <Search setQuery={setQuery} />
-      {loading && <div>Loading...</div>}
+      {loading && <Loader />}
       {error && <div>Error! {error.message}</div>}
       <ul className='text-white flex gap-4 flex-col font-basierCircle text-xl leading-[32px]'>
         {filteredSongs.map((song, index) => {
