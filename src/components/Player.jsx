@@ -72,7 +72,7 @@ function Player({
   }
 
   return (
-    <div className='h-[200px] rounded-lg flex flex-col mx-auto xl:mx-[162px] items-center sm:w-full max-w-[360px] sm:max-w-[480px] xl:h-full max-h-[700px]'>
+    <div className='h-[130px] pl-0 p-10 pb-0 mb-24 rounded-lg flex flex-col mx-auto xl:mx-[162px] items-center sm:w-full max-w-[360px] sm:max-w-[480px] xl:h-full max-h-[700px]'>
       <div className='flex w-full justify-between lg:flex-col gap-2 md:gap-8'>
         <div className='flex flex-col gap-1 md:gap-2'>
           <h2 className='text-white font-basierCircle font-bold text-lg md:text-xl lg:text-[32px]'>
@@ -95,7 +95,7 @@ function Player({
         controls={false}
         muted={muted}
       />
-      <div className='h-[4px] w-full  bg-white bg-opacity-20 cursor-pointer rounded-2xl'>
+      <div className='h-[4px] w-full max-w-[480px] bg-white bg-opacity-20 cursor-pointer rounded-2xl'>
         <input
           type='range'
           min='0'
@@ -104,7 +104,7 @@ function Player({
           onMouseDown={handleSeekMouseDown}
           onMouseUp={handleSeekMouseUp}
           value={played}
-          className='h-[4px] w-full absolute opacity-0 cursor-pointer max-w-[480px]'
+          className='h-[4px] w-full absolute opacity-0 cursor-pointer max-w-[444px]'
           onChange={handleSeekChange}
         />
         <div
@@ -113,7 +113,7 @@ function Player({
         ></div>
       </div>
 
-      <div className='flex items-center mt-6 md:mt-8 justify-between w-full'>
+      <div className='flex items-center mt-8 justify-between w-full'>
         <button>
           <img
             src={menu}

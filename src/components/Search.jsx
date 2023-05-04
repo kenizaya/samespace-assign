@@ -3,7 +3,7 @@ import searchIcon from '../assets/searchIcon.svg'
 const Search = ({ setQuery }) => {
   return (
     <div className='mb-[41px] mt-[33px] w-full'>
-      <div className='relative mb-4 flex w-full max-w-[420px] flex-wrap items-center'>
+      <div className='relative mb-4 flex w-full max-w-[420px] flex-wrap items-center border border-1 border-opacity-20 border-gray-300 '>
         <input
           type='search'
           className='relative placeholder:opacity-60 h-12 rounded-lg m-0 block w-[1px] min-w-0 flex-auto bg-clip-padding px-4 py-[0.25rem] text-base font-normal leading-[1.6] text-white outline-none transition duration-200 ease-in-out border-none bg-transparent'
