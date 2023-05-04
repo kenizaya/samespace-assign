@@ -11,6 +11,7 @@ const App = () => {
   const [currentSongIndex, setCurrentSongIndex] = React.useState(0)
   const [currentSong, setCurrentSong] = React.useState(songs[currentSongIndex])
   const [gradient, setGradient] = React.useState('black')
+  console.log(currentSongIndex)
 
   useEffect(() => {
     setCurrentSong(songs[currentSongIndex])
@@ -48,6 +49,7 @@ const App = () => {
         playlistId={playlistId}
         setSongs={setSongs}
         setCurrentSongIndex={setCurrentSongIndex}
+        currentSongIndex={currentSongIndex}
       />
       {songs.length !== 0 && currentSong && (
         <Player

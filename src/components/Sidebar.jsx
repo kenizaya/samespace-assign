@@ -15,7 +15,12 @@ const GET_SONGS = gql`
     }
   }
 `
-const Sidebar = ({ playlistId, setSongs, setCurrentSongIndex }) => {
+const Sidebar = ({
+  playlistId,
+  setSongs,
+  setCurrentSongIndex,
+  currentSongIndex,
+}) => {
   const [query, setQuery] = React.useState('')
   const [filteredSongs, setFilteredSongs] = React.useState([])
   const { data, error, loading } = useQuery(GET_SONGS, {
@@ -67,7 +72,11 @@ const Sidebar = ({ playlistId, setSongs, setCurrentSongIndex }) => {
           return (
             <li
               key={_id}
-              className='w-full h-[80px] rounded-lg cursor-pointer flex '
+              className={`w-full h-[80px] rounded-lg cursor-pointer flex ${
+                currentSongIndex !== undefined && currentSongIndex === index
+                  ? 'bg-gray-600'
+                  : ''
+              }`}
               onClick={() => handleClick(index)}
             >
               <div className='w-full flex justify-between px-4 items-center'>
