@@ -73,9 +73,7 @@ const Sidebar = ({
             <li
               key={_id}
               className={`w-full h-[80px] rounded-lg cursor-pointer flex ${
-                currentSongIndex !== undefined && currentSongIndex === index
-                  ? 'bg-gray-600'
-                  : ''
+                _id === getSongs[currentSongIndex]?._id ? 'bg-gray-600' : ''
               }`}
               onClick={() => handleClick(index)}
             >
