@@ -10,6 +10,7 @@ const App = () => {
   const [songs, setSongs] = React.useState([])
   const [currentSongIndex, setCurrentSongIndex] = React.useState(0)
   const [currentSong, setCurrentSong] = React.useState(songs[currentSongIndex])
+  const [showMobile, setShowMobile] = React.useState(false)
   const [gradient, setGradient] = React.useState('black')
   console.log(currentSongIndex)
 
@@ -39,18 +40,33 @@ const App = () => {
 
   // console.log(gradient)
 
+  const handleWindowSizeChange = () => {
+    setShowMobile(window.innerWidth <= 1200)
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange)
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange)
+    }
+  }, [])
+
   return (
     <div
       className='pl-8 pt-8 flex h-screen'
       style={{ background: `${gradient}` }}
     >
-      <Navigation setPlaylistId={setPlaylistId} playlistId={playlistId} />
-      <Sidebar
-        playlistId={playlistId}
-        setSongs={setSongs}
-        setCurrentSongIndex={setCurrentSongIndex}
-        currentSongIndex={currentSongIndex}
-      />
+      {!showMobile && (
+        <Navigation setPlaylistId={setPlaylistId} playlistId={playlistId} />
+      )}
+      {!showMobile && (
+        <Sidebar
+          playlistId={playlistId}
+          setSongs={setSongs}
+          setCurrentSongIndex={setCurrentSongIndex}
+          currentSongIndex={currentSongIndex}
+        />
+      )}
       {songs.length !== 0 && currentSong && (
         <Player
           songs={songs}
