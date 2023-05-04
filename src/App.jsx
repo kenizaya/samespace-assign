@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import Navigation from './components/Navigation'
 import Sidebar from './components/Sidebar'
 import Player from './components/Player'
-import GradientBackground from './components/GradientBackground'
-import Vibrant from 'node-vibrant'
+// import GradientBackground from './components/GradientBackground'
+// import Vibrant from 'node-vibrant'
 
 const App = () => {
   const [playlistId, setPlaylistId] = React.useState(1)

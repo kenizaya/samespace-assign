@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import Search from './Search'
 import { gql, useQuery } from '@apollo/client'
 import { formatTime } from '../utils/formatTime'
@@ -16,27 +16,53 @@ const GET_SONGS = gql`
   }
 `
 const Sidebar = ({ playlistId, setSongs, setCurrentSongIndex }) => {
+  const [query, setQuery] = React.useState('')
+  const [filteredSongs, setFilteredSongs] = React.useState([])
   const { data, error, loading } = useQuery(GET_SONGS, {
     variables: { playlistId: playlistId },
   })
 
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>Error! {error.message}</div>
-  const { getSongs } = data
+  const getSongs = useMemo(() => {
+    return data?.getSongs || []
+  }, [data])
 
   const handleClick = (index) => {
     setSongs(getSongs)
     setCurrentSongIndex(index)
   }
 
+  useEffect(() => {
+    if (getSongs) {
+      setFilteredSongs(getSongs)
+
+      if (query) {
+        setFilteredSongs(
+          getSongs.filter(
+            (item) =>
+              item.title
+                .toLowerCase()
+                .split(' ')[0]
+                .startsWith(query.toLowerCase()) ||
+              item.artist
+                .toLowerCase()
+                .split(' ')[0]
+                .startsWith(query.toLowerCase())
+          )
+        )
+      }
+    }
+  }, [query, getSongs])
+
   return (
     <div className='h-full max-h-[862px] w-[432px] overflow-y-scroll no-scrollbar'>
       <h2 className='text-white font-basierCircle font-bold text-[32px] leading-8'>
         For You
       </h2>
-      <Search />
+      <Search setQuery={setQuery} />
+      {loading && <div>Loading...</div>}
+      {error && <div>Error! {error.message}</div>}
       <ul className='text-white flex gap-4 flex-col font-basierCircle text-xl leading-[32px]'>
-        {getSongs.map((song, index) => {
+        {filteredSongs.map((song, index) => {
           const { _id, title, artist, duration, photo } = song
           return (
             <li
