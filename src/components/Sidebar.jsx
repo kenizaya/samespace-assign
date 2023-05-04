@@ -21,9 +21,11 @@ const Sidebar = ({
   setSongs,
   setCurrentSongIndex,
   currentSongIndex,
+  gradientColor,
 }) => {
   const [query, setQuery] = React.useState('')
   const [filteredSongs, setFilteredSongs] = React.useState([])
+  const [activeSongColor, setActiveSongColor] = React.useState('')
   const { data, error, loading } = useQuery(GET_SONGS, {
     variables: { playlistId: playlistId },
   })
@@ -31,6 +33,10 @@ const Sidebar = ({
   const getSongs = useMemo(() => {
     return data?.getSongs || []
   }, [data])
+
+  useEffect(() => {
+    setActiveSongColor(`bg-${gradientColor}`)
+  }, [gradientColor])
 
   const handleClick = (index) => {
     setSongs(filteredSongs)
@@ -76,7 +82,7 @@ const Sidebar = ({
               key={_id}
               className={`w-full h-[80px] rounded-lg cursor-pointer flex ${
                 _id === filteredSongs[currentSongIndex]?._id
-                  ? 'bg-gray-600'
+                  ? `${activeSongColor} opacity-80`
                   : ''
               }`}
               onClick={() => handleClick(index)}

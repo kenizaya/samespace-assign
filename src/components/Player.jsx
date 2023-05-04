@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import ReactPlayer from 'react-player/file'
 import menu from '../assets/menu.svg'
 import prev from '../assets/prev.svg'
@@ -16,8 +16,9 @@ function Player({
 }) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [played, setPlayed] = useState(0)
-  const [currentTime, setCurrentTime] = useState(0)
-  const [duration, setDuration] = useState(0)
+
+  const [seeking, setSeeking] = useState(false)
+  const playerRef = useRef(null)
 
   useEffect(() => {
     setCurrentSong(songs[currentSongIndex])
@@ -27,11 +28,6 @@ function Player({
 
   const handlePlayPause = () => {
     setIsPlaying((prev) => !prev)
-  }
-
-  const handleTimeUpdate = (e) => {
-    setCurrentTime(e.target.currentTime)
-    setDuration(e.target.duration)
   }
 
   const handlePrevious = () => {
@@ -45,27 +41,26 @@ function Player({
       setCurrentSongIndex((prev) => prev + 1)
     }
   }
-  // const [isPlaying, setIsPlaying] = useState(false)
-  // const [isMuted, setIsMuted] = useState(false)
 
-  // useEffect(() => {
-  //   const audioElement = document.getElementById('audio')
-  //   audioElement.src = url
+  const handleProgress = (state) => {
+    if (!seeking) {
+      setPlayed(state.played)
+    }
+  }
 
-  //   if (isPlaying) {
-  //     audioElement.play()
-  //   } else {
-  //     audioElement.pause()
-  //   }
-  // }, [currentSong, isPlaying])
+  const handleSeekChange = (e) => {
+    const newTime = e.target.value
+    setPlayed(newTime)
+  }
 
-  // function handlePlayPause() {
-  //   setIsPlaying(!isPlaying)
-  // }
+  const handleSeekMouseDown = () => {
+    setSeeking(true)
+  }
 
-  // function handleMuteUnmute() {
-  //   setIsMuted(!isMuted)
-  // }
+  const handleSeekMouseUp = () => {
+    setSeeking(false)
+    playerRef.current.seekTo(played)
+  }
 
   return (
     <div className='h-[200px] rounded-lg flex flex-col mx-auto xl:mx-[162px] items-center sm:w-full max-w-[360px] sm:max-w-[480px] xl:h-full max-h-[700px]'>
@@ -83,10 +78,28 @@ function Player({
         />
       </div>
 
-      <div className='h-[4px] w-full bg-white bg-opacity-20 cursor-pointer rounded-2xl'>
+      <ReactPlayer
+        ref={playerRef}
+        url={url}
+        playing={isPlaying}
+        onProgress={handleProgress}
+        controls={false}
+      />
+      <div className='h-[4px] w-full  bg-white bg-opacity-20 cursor-pointer rounded-2xl'>
+        <input
+          type='range'
+          min='0'
+          max='1'
+          step='0.01'
+          onMouseDown={handleSeekMouseDown}
+          onMouseUp={handleSeekMouseUp}
+          value={played}
+          className='h-[4px] w-full absolute opacity-0 cursor-pointer max-w-[480px]'
+          onChange={handleSeekChange}
+        />
         <div
           className='h-[4px] bg-white rounded-2xl'
-          style={{ width: `${played}%` }}
+          style={{ width: `${played * 100}%` }}
         ></div>
       </div>
 
@@ -139,14 +152,6 @@ function Player({
           {/* <img src='mute' alt='Volume Mute' className='w-6 h-6' /> */}
         </button>
       </div>
-      <ReactPlayer
-        url={url}
-        onProgress={({ played, playedSeconds }) => {
-          setPlayed(played * 100)
-        }}
-        playing={isPlaying}
-        controls={false}
-      />
     </div>
   )
 }

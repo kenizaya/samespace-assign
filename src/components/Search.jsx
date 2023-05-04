@@ -6,7 +6,7 @@ const Search = ({ setQuery }) => {
       <div className='relative mb-4 flex w-full max-w-[420px] flex-wrap items-center'>
         <input
           type='search'
-          className='relative placeholder:opacity-60 h-12 rounded-lg m-0 block w-[1px] min-w-0 flex-auto bg-clip-padding px-4 py-[0.25rem] text-base font-normal leading-[1.6] text-white outline-none transition duration-200 ease-in-out border-none bg-gray-800'
+          className='relative placeholder:opacity-60 h-12 rounded-lg m-0 block w-[1px] min-w-0 flex-auto bg-clip-padding px-4 py-[0.25rem] text-base font-normal leading-[1.6] text-white outline-none transition duration-200 ease-in-out border-none bg-transparent'
           placeholder='Search Song, Artist'
           aria-label='Search'
           aria-describedby='button-addon2'

@@ -14,9 +14,7 @@ const App = () => {
   const [showMobile, setShowMobile] = React.useState(false)
   const [showPlaylist, setShowPlaylist] = React.useState(true)
   const { color, canvasRef } = useImageColor(currentSong?.photo)
-  const gradientStartColor = `rgba(${color?.r}, ${color?.g}, ${color?.b}, 0.6)`
-  const gradientEndColor = `rgba(${color?.r}, ${color?.g}, ${color?.b}, 1 )`
-  console.log(gradientStartColor)
+  const gradientColor = `rgb(${color?.r}, ${color?.g}, ${color?.b})`
 
   useEffect(() => {
     setCurrentSong(songs[currentSongIndex])
@@ -60,13 +58,9 @@ const App = () => {
   return (
     <div
       style={{
-        background: `linear-gradient(to right, rgba(${color.r},${color.g},${color.b}, 0.8), rgba(${color.r},${color.g},${color.b}, 1))`,
+        background: `linear-gradient(to right, rgba(${color.r},${color.g},${color.b}, 0.8), ${gradientColor})`,
       }}
-      className={`px-8 pt-8 flex h-screen max-h-full overflow-hidden ${
-        color
-          ? `bg-gradient-to-r from-[${gradientStartColor}] to-[${gradientEndColor}]`
-          : 'bg-black'
-      }`}
+      className={`px-8 pt-8 flex h-screen max-h-full overflow-hidden`}
     >
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
@@ -79,6 +73,7 @@ const App = () => {
           setSongs={setSongs}
           setCurrentSongIndex={setCurrentSongIndex}
           currentSongIndex={currentSongIndex}
+          gradientColor={gradientColor}
         />
 
         {songs.length !== 0 && currentSong && (
