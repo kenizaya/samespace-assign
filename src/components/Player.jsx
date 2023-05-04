@@ -6,6 +6,7 @@ import play from '../assets/play.svg'
 import pause from '../assets/pause.svg'
 import next from '../assets/next.svg'
 import speaker from '../assets/speaker.svg'
+import mute from '../assets/mute.svg'
 
 function Player({
   songs,
@@ -17,6 +18,7 @@ function Player({
   const [isPlaying, setIsPlaying] = useState(false)
   const [played, setPlayed] = useState(0)
   const [seeking, setSeeking] = useState(false)
+  const [muted, setMuted] = useState(false)
   const playerRef = useRef(null)
 
   useEffect(() => {
@@ -24,10 +26,6 @@ function Player({
   }, [currentSongIndex, songs])
 
   const { title, artist, photo, url } = currentSong
-
-  // // useEffect(() => {
-  //   setPlayed(0)
-  // }, [currentSong])
 
   const handlePlayPause = () => {
     setIsPlaying((prev) => !prev)
@@ -69,6 +67,10 @@ function Player({
     playerRef.current.seekTo(played)
   }
 
+  const handleMute = () => {
+    setMuted(!muted)
+  }
+
   return (
     <div className='h-[200px] rounded-lg flex flex-col mx-auto xl:mx-[162px] items-center sm:w-full max-w-[360px] sm:max-w-[480px] xl:h-full max-h-[700px]'>
       <div className='flex w-full justify-between lg:flex-col gap-2 md:gap-8'>
@@ -91,6 +93,7 @@ function Player({
         playing={isPlaying}
         onProgress={handleProgress}
         controls={false}
+        muted={muted}
       />
       <div className='h-[4px] w-full  bg-white bg-opacity-20 cursor-pointer rounded-2xl'>
         <input
@@ -150,13 +153,20 @@ function Player({
           </button>
         </div>
 
-        <button>
-          <img
-            src={speaker}
-            alt='Volume Up'
-            className='w-1/2 h-1/2 lg:w-full lg:h-full'
-          />
-          {/* <img src='mute' alt='Volume Mute' className='w-6 h-6' /> */}
+        <button onClick={handleMute}>
+          {!muted ? (
+            <img
+              src={speaker}
+              alt='Volume Up'
+              className='w-1/2 h-1/2 lg:w-full lg:h-full'
+            />
+          ) : (
+            <img
+              src={mute}
+              alt='Volume Mute'
+              className='w-1/2 h-1/2 lg:w-full lg:h-full'
+            />
+          )}
         </button>
       </div>
     </div>
